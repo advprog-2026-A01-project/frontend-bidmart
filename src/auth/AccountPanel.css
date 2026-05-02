@@ -1,0 +1,744 @@
+/* Responsive polish for AccountPanel. No business logic changes. */
+
+.ap-root {
+    display: grid;
+    gap: 12px;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.ap-card,
+.ap-subcard {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.ap-title {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.ap-tabRow,
+.ap-inlineRow,
+.ap-actions,
+.ap-toolbarRow,
+.ap-primaryActions,
+.ap-adminActionRow,
+.ap-copyRow,
+.ap-roleControlRow {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.ap-tabRow {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding-bottom: 2px;
+}
+
+.ap-field,
+.ap-profileForm label {
+    display: grid;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.ap-label,
+.ap-subcardTitle,
+.ap-copyLabel {
+    font-weight: 700;
+}
+
+.ap-helpText,
+.ap-statusText,
+.ap-mutedText,
+.ap-previewMeta,
+.ap-previewHint,
+.ap-tokenHint {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--muted, #667085);
+}
+
+.ap-helpInfo {
+    color: #0056b3;
+    margin-top: 6px;
+}
+
+.ap-userMeta {
+    line-height: 1.45;
+}
+
+.ap-grow {
+    flex: 1 1 220px;
+    min-width: 0;
+}
+
+.ap-roleSelect {
+    width: 140px;
+    min-width: 140px;
+}
+
+.ap-passwordWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ap-passwordInput {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.ap-eyeBtn {
+    position: absolute;
+    right: 8px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+}
+
+.ap-divider {
+    margin: 12px 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+.ap-fieldBlock {
+    margin-top: 10px;
+}
+
+.ap-copyCard {
+    margin-top: 8px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.ap-copyRow {
+    margin-top: 6px;
+}
+
+.ap-copyRow code,
+.ap-breakAll {
+    word-break: break-all;
+}
+
+.ap-rbacStack {
+    display: grid;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.ap-permSection {
+    display: grid;
+    gap: 6px;
+}
+
+.ap-permGrid {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.ap-permItem {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.ap-permDesc {
+    opacity: 0.7;
+}
+
+.ap-tableScroll {
+    overflow-x: auto;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.ap-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+}
+
+.ap-emptyState {
+    opacity: 0.8;
+    margin-top: 10px;
+}
+
+.ap-toastWrap {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 50;
+    max-width: 360px;
+}
+
+.ap-toast {
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.ap-toastError {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #9f1239;
+}
+
+.ap-toastIcon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.ap-toastBody {
+    flex: 1;
+    min-width: 0;
+}
+
+.ap-toastTitle {
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.ap-toastText {
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.ap-toastClose {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    color: inherit;
+    padding: 0;
+}
+
+.ap-profileGrid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 14px;
+    align-items: start;
+}
+
+/*Untuk captcha*/
+.ap-captchaBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 84px;
+    padding: 10px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.ap-captchaImage {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.ap-previewCard {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--bg-subtle);
+    padding: 14px;
+}
+
+.ap-avatarLg {
+    width: 112px;
+    height: 112px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #fff;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: 40px;
+    color: var(--ebay-blue);
+}
+
+.ap-avatarLg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ap-previewName {
+    margin-top: 10px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+.ap-profileForm {
+    display: grid;
+    gap: 10px;
+}
+
+.ap-inlineLabel {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.ap-tokenHint {
+    font-size: 12px;
+    opacity: 0.85;
+    word-break: break-all;
+}
+
+@media (max-width: 920px) {
+    .ap-root {
+        max-width: 100%;
+    }
+
+    .ap-roleSelect {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 720px) {
+    .ap-profileGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .ap-previewCard {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .ap-previewText {
+        min-width: 0;
+    }
+
+    .ap-avatarLg {
+        width: 96px;
+        height: 96px;
+        font-size: 34px;
+    }
+
+    .ap-stackOnMobile {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ap-stackOnMobile > * {
+        width: 100%;
+    }
+
+    .ap-primaryActions > button,
+    .ap-toolbarRow > button {
+        flex: 1 1 160px;
+    }
+
+    .ap-copyRow {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ap-copyRow > button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 560px) {
+    .ap-toastWrap {
+        position: static;
+        max-width: none;
+        margin-bottom: 12px;
+    }
+
+    .ap-card {
+        padding: 14px !important;
+        border-radius: 14px !important;
+    }
+
+    .ap-subcard {
+        padding: 12px !important;
+        border-radius: 14px !important;
+    }
+
+    .ap-previewCard {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .ap-permGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .ap-adminActionRow {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .ap-adminActionRow > * {
+        width: 100%;
+    }
+
+    .ap-inlineLabel {
+        display: grid;
+        width: 100%;
+    }
+
+    .ap-inlineLabel select {
+        width: 100%;
+    }
+}
+
+/* ===== Account modal + admin responsiveness ===== */
+
+.ap-tableWrap {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 10px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ap-table th,
+.ap-table td {
+    word-break: break-word;
+}
+
+.ap-adminActionWrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    min-width: min(100%, 320px);
+}
+
+.ap-adminActionWrap > button,
+.ap-adminActionWrap > select {
+    flex: 0 1 auto;
+}
+
+.ap-formGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.ap-editorCard {
+    min-width: 0;
+}
+
+@media (max-width: 720px) {
+    .ap-formGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .ap-table {
+        min-width: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .ap-table thead {
+        display: none;
+    }
+
+    .ap-table,
+    .ap-table tbody,
+    .ap-table tr,
+    .ap-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .ap-table tbody {
+        display: grid;
+        gap: 12px;
+    }
+
+    .ap-table tr {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+    }
+
+    .ap-table td {
+        display: grid;
+        grid-template-columns: minmax(90px, 110px) minmax(0, 1fr);
+        gap: 10px;
+        padding: 10px 12px;
+        border-bottom: 1px solid #eee;
+        align-items: start;
+    }
+
+    .ap-table td:last-child {
+        border-bottom: 0;
+    }
+
+    .ap-table td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .ap-adminActionWrap {
+        display: grid;
+        grid-template-columns: 1fr;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .ap-adminActionWrap > button,
+    .ap-adminActionWrap > select {
+        width: 100%;
+    }
+}
+
+/* ===== Auth form tidy layout ===== */
+
+.ap-authShell {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.ap-authFormCard {
+    width: 100%;
+    max-width: 560px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+}
+
+.ap-authHeader {
+    margin-bottom: 14px;
+}
+
+.ap-authTitle {
+    margin: 0;
+    font-size: 1.75rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.ap-authSubtitle {
+    margin: 8px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #667085;
+}
+
+.ap-authModeRow {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.ap-authFields {
+    display: grid;
+    gap: 14px;
+}
+
+.ap-field {
+    display: grid;
+    gap: 6px;
+}
+
+.ap-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.ap-authSubmit {
+    margin-top: 16px;
+    display: flex;
+}
+
+.ap-primaryBtn {
+    min-width: 140px;
+}
+
+.ap-authSubcard {
+    margin-top: 16px;
+}
+
+.ap-authInlineAction {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.ap-authInlineAction input {
+    flex: 1 1 220px;
+    min-width: 0;
+}
+
+.ap-subcardTitle {
+    font-weight: 700;
+}
+
+.ap-helpText {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.ap-helpInfo {
+    margin-top: 6px;
+    color: #0056b3;
+}
+
+/* For notification toast */
+.ap-toastSuccess {
+    background: #ecfdf3;
+    border: 1px solid #abefc6;
+    color: #067647;
+}
+
+.ap-registerDocCard textarea {
+    width: 100%;
+    min-height: 96px;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-top: 10px;
+}
+
+@media (max-width: 640px) {
+    .ap-authFormCard {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .ap-authTitle {
+        font-size: 1.4rem;
+    }
+
+    .ap-authInlineAction {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ap-authInlineAction > * {
+        width: 100%;
+    }
+
+    .ap-authSubmit {
+        display: block;
+    }
+
+    .ap-primaryBtn {
+        width: 100%;
+    }
+}
+
+/* ===== RBAC create role / create permission polish ===== */
+
+.ap-rbacCreateGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.ap-rbacCreateCard {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #fff;
+    padding: 14px;
+    box-shadow: 0 4px 14px rgba(16, 24, 40, 0.04);
+    min-width: 0;
+}
+
+.ap-rbacCreateHeader {
+    margin-bottom: 12px;
+}
+
+.ap-rbacCreateTitle {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #111827;
+}
+
+.ap-rbacCreateHint {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #667085;
+}
+
+.ap-rbacField {
+    margin-top: 0;
+}
+
+.ap-rbacPermFields {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.ap-rbacCreateAction {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.ap-rbacCreateAction > button {
+    min-width: 150px;
+}
+
+@media (max-width: 900px) {
+    .ap-rbacCreateGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .ap-rbacPermFields {
+        grid-template-columns: 1fr;
+    }
+
+    .ap-rbacCreateAction {
+        justify-content: stretch;
+    }
+
+    .ap-rbacCreateAction > button {
+        width: 100%;
+    }
+}
+
+.ap-helpOk {
+    color: #067647;
+}
+
+.ap-helpWarn {
+    color: #b54708;
+}
