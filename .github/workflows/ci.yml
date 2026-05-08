@@ -32,10 +32,10 @@ jobs:
         run: npm ci
 
       - name: Generate quality reports
-        run: ./scripts/generate-quality-reports.sh
+        run: bash scripts/generate-quality-reports.sh
 
       - name: Verify quality reports
-        run: ./scripts/verify-quality-reports.sh
+        run: bash scripts/verify-quality-reports.sh
 
       - name: Upload frontend quality artifacts
         uses: actions/upload-artifact@v4
