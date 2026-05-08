@@ -31,17 +31,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint if present
-        run: npm run lint --if-present
+      - name: Generate quality reports
+        run: ./scripts/generate-quality-reports.sh
 
-      - name: Build
-        run: npm run build
+      - name: Verify quality reports
+        run: ./scripts/verify-quality-reports.sh
 
-      - name: Upload frontend build
+      - name: Upload frontend quality artifacts
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: frontend-dist
-          path: dist
+          name: frontend-quality-artifacts
+          path: |
+            reports
+            dist
 
   docker:
     runs-on: ubuntu-latest
