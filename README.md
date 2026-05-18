@@ -1,4 +1,5 @@
 # BidMart Frontend
+### ***By Neal Guarddin - Advance Programming A - 2406348282***
 
 `frontend-bidmart` adalah frontend React untuk aplikasi BidMart dalam arsitektur microservices.
 
