@@ -1,4 +1,4 @@
-name: Frontend CI
+name: Frontend CI/CD
 
 on:
   push:
@@ -31,17 +31,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint if present
-        run: npm run lint --if-present
+      - name: Generate quality reports
+        run: bash scripts/generate-quality-reports.sh
 
-      - name: Build
-        run: npm run build
+      - name: Verify quality reports
+        run: bash scripts/verify-quality-reports.sh
 
-      - name: Upload frontend build
+      - name: Upload frontend quality artifacts
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: frontend-dist
-          path: dist
+          name: frontend-quality-artifacts
+          path: |
+            reports
+            dist
 
   docker:
     runs-on: ubuntu-latest
@@ -51,5 +54,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t frontend-bidmart:ci .
+      - name: Build Docker image locally
+        run: |
+          IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY,,}"
+          docker build -t "$IMAGE_NAME:ci" .
+          docker image inspect "$IMAGE_NAME:ci"
+
+      - name: Log in to GHCR
+        if: github.event_name == 'push'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Publish Docker image to GHCR
+        if: github.event_name == 'push'
+        run: |
+          IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY,,}"
+          SHORT_SHA="${GITHUB_SHA::12}"
+          SAFE_REF="$(echo "${GITHUB_REF_NAME}" | tr '[:upper:]' '[:lower:]' | sed 's#[^a-z0-9_.-]#-#g')"
+
+          docker tag "$IMAGE_NAME:ci" "$IMAGE_NAME:$SHORT_SHA"
+          docker tag "$IMAGE_NAME:ci" "$IMAGE_NAME:$SAFE_REF"
+
+          docker push "$IMAGE_NAME:$SHORT_SHA"
+          docker push "$IMAGE_NAME:$SAFE_REF"
+
+          if [ "$GITHUB_REF_NAME" = "main" ]; then
+            docker tag "$IMAGE_NAME:ci" "$IMAGE_NAME:latest"
+            docker push "$IMAGE_NAME:latest"
+          fi
+
+          echo "Published $IMAGE_NAME:$SHORT_SHA"
+          echo "Published $IMAGE_NAME:$SAFE_REF"
