@@ -1,53 +1,42 @@
-export interface WalletInfo {
-    availableBalance: number;
-    heldBalance: number;
-}
-
-export interface WalletTransaction {
-    id: string;
-    userId: number;
-    type: string;
-    amount: number;
-    createdAt: string;
-}
-
+import { apiFetch } from './http';
+import type { WalletInfo, WalletTransaction } from '../types/WalletTypes';
 import { loadTokens } from '../auth/tokenStorage';
 
-const getAuthHeaders = () => {
+const getAccessToken = () => {
     const tokens = loadTokens();
-    const token = tokens?.accessToken;
-    return {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-    };
+    return tokens?.accessToken;
 };
 
 export const getWalletInfo = async (): Promise<WalletInfo> => {
-    const res = await fetch(`/api/wallet/me/info`, { headers: getAuthHeaders() });
-    if (!res.ok) throw new Error('Failed to fetch wallet info');
-    return res.json();
+    const accessToken = getAccessToken();
+    if (!accessToken) throw new Error('Unauthorized');
+    return apiFetch('/api/wallet/me/info', { accessToken });
 };
 
 export const topUpWallet = async (amount: number): Promise<void> => {
-    const res = await fetch(`/api/wallet/me/topup`, {
+    const accessToken = getAccessToken();
+    if (!accessToken) throw new Error('Unauthorized');
+    return apiFetch('/api/wallet/me/topup', {
         method: 'POST',
-        headers: getAuthHeaders(),
+        accessToken,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount })
     });
-    if (!res.ok) throw new Error('Failed to top up wallet');
 };
 
 export const withdrawWallet = async (amount: number): Promise<void> => {
-    const res = await fetch(`/api/wallet/me/withdraw`, {
+    const accessToken = getAccessToken();
+    if (!accessToken) throw new Error('Unauthorized');
+    return apiFetch('/api/wallet/me/withdraw', {
         method: 'POST',
-        headers: getAuthHeaders(),
+        accessToken,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount })
     });
-    if (!res.ok) throw new Error(await res.text());
 };
 
 export const getWalletHistory = async (): Promise<WalletTransaction[]> => {
-    const res = await fetch(`/api/wallet/me/history`, { headers: getAuthHeaders() });
-    if (!res.ok) throw new Error('Failed to fetch wallet history');
-    return res.json();
+    const accessToken = getAccessToken();
+    if (!accessToken) throw new Error('Unauthorized');
+    return apiFetch('/api/wallet/me/history', { accessToken });
 };
