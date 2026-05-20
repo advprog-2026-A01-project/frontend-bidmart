@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { WalletInfo, WalletTransaction } from '../../api/WalletApi';
+import type { WalletInfo, WalletTransaction } from '../../types/WalletTypes';
 import { getWalletInfo, getWalletHistory, topUpWallet, withdrawWallet } from '../../api/WalletApi';
 import { useAuth } from '../../auth/useAuth';
 import './WalletPanel.css';
