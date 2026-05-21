@@ -3,6 +3,7 @@ import './App.css'
 import { useAuth } from './auth/useAuth'
 import { AccountPanel } from './auth/AccountPanel'
 import { WalletPanel } from './components/wallet/WalletPanel'
+import { BiddingPanel } from './components/bidding/BiddingPanel'
 import { AuthProvider } from './auth/AuthContext'
 import { CatalogPanel } from './catalog/CatalogPanel'
 
@@ -92,7 +93,11 @@ function HomePage() {
                 </section>
 
                 <section style={{ marginTop: 16 }}>
+<<<<<<< Updated upstream
                     <CatalogPanel />
+=======
+                    <BiddingPanel />
+>>>>>>> Stashed changes
                 </section>
             </main>
 
