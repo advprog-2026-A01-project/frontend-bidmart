@@ -93,11 +93,8 @@ function HomePage() {
                 </section>
 
                 <section style={{ marginTop: 16 }}>
-<<<<<<< Updated upstream
                     <CatalogPanel />
-=======
                     <BiddingPanel />
->>>>>>> Stashed changes
                 </section>
             </main>
 

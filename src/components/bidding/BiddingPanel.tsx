@@ -34,8 +34,8 @@ export const BiddingPanel: React.FC = () => {
             const data = await getAuctions();
             setAuctions(data);
             setError('');
-        } catch (err: any) {
-            setError(err.message || 'Failed to load auctions');
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Failed to load auctions');
         } finally {
             setLoading(false);
         }
@@ -74,16 +74,16 @@ export const BiddingPanel: React.FC = () => {
 
         try {
             setBiddingState('bidding');
-            await placeBid(selectedAuction.id, { userId: (user as any).id || 1, amount });
+            await placeBid(selectedAuction.id, { userId: (user as {id?: number}).id || 1, amount });
             setBiddingState('success');
             setBiddingMessage('Bid placed successfully!');
             setTimeout(() => {
                 setSelectedAuction(null);
                 fetchAuctions();
             }, 2000);
-        } catch (err: any) {
+        } catch (err: unknown) {
             setBiddingState('error');
-            setBiddingMessage(err.message || 'Failed to place bid');
+            setBiddingMessage(err instanceof Error ? err.message : 'Failed to place bid');
         }
     };
 
