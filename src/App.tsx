@@ -4,6 +4,7 @@ import { useAuth } from './auth/useAuth'
 import { AccountPanel } from './auth/AccountPanel'
 import { WalletPanel } from './components/wallet/WalletPanel'
 import { AuthProvider } from './auth/AuthContext'
+import { CatalogPanel } from './catalog/CatalogPanel'
 
 function HomePage() {
     const { user } = useAuth()
@@ -91,20 +92,7 @@ function HomePage() {
                 </section>
 
                 <section style={{ marginTop: 16 }}>
-                    <div className="bm-grid">
-                        <div className="bm-card">
-                            <p className="bm-cardTitle">Popular item #1</p>
-                            <p className="bm-cardMeta">Starting at $10 · Ends in 2h</p>
-                        </div>
-                        <div className="bm-card">
-                            <p className="bm-cardTitle">Popular item #2</p>
-                            <p className="bm-cardMeta">Starting at $35 · Ends tomorrow</p>
-                        </div>
-                        <div className="bm-card">
-                            <p className="bm-cardTitle">Popular item #3</p>
-                            <p className="bm-cardMeta">Starting at $7 · Ends in 5h</p>
-                        </div>
-                    </div>
+                    <CatalogPanel />
                 </section>
             </main>
 
