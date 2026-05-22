@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { apiFetch } from '../api/http'
 import { useAuth } from '../auth/useAuth'
+import { BiddingPanel } from '../components/bidding/BiddingPanel'
 import './CatalogPanel.css'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -134,7 +135,7 @@ function ListingCard({ listing, onPublish, onCancel, isMine }: {
 
 // ─── Main Panel ───────────────────────────────────────────────────────────────
 
-type CatalogTab = 'browse' | 'my' | 'create' | 'categories'
+type CatalogTab = 'browse' | 'my' | 'create' | 'categories' | 'auctions'
 
 export function CatalogPanel() {
     const { user, tokens } = useAuth()
@@ -372,6 +373,7 @@ export function CatalogPanel() {
                 {user && <button style={tabStyle('my')} onClick={() => setTab('my')}>My listings</button>}
                 {user && <button style={tabStyle('create')} onClick={() => setTab('create')}>+ Buat listing</button>}
                 <button style={tabStyle('categories')} onClick={() => setTab('categories')}>Kategori</button>
+                <button style={tabStyle('auctions')} onClick={() => setTab('auctions')}>🔨 Auctions</button>
             </div>
 
             {/* ── Browse tab ─────────────────────────────────────────────────── */}
@@ -531,6 +533,13 @@ export function CatalogPanel() {
                     </button>
 
                     <StatusMsg msg={createMsg} type={createMsg.includes('berhasil') ? 'ok' : 'err'} />
+                </div>
+            )}
+
+            {/* ── Auctions tab ──────────────────────────────────────────────── */}
+            {tab === 'auctions' && (
+                <div style={{ display: 'grid', gap: 12 }}>
+                    <BiddingPanel />
                 </div>
             )}
 
