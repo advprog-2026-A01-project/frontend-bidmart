@@ -92,3 +92,57 @@ code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.95em;
 }
+/* ===== BidMart responsive polish: shared design tokens ===== */
+
+:root {
+  --color-background-primary: var(--bg);
+  --color-background-secondary: var(--bg-subtle);
+  --color-background-info: rgba(8, 106, 244, 0.08);
+
+  --color-text-primary: var(--text);
+  --color-text-secondary: var(--muted);
+  --color-text-info: var(--ebay-blue);
+  --color-text-success: #067647;
+  --color-text-danger: #b42318;
+
+  --color-border-tertiary: var(--border);
+  --color-border-info: rgba(8, 106, 244, 0.32);
+  --color-border-danger: rgba(180, 35, 24, 0.36);
+
+  --surface-raised: #ffffff;
+  --surface-soft: #f8fafc;
+  --shadow-card: 0 10px 28px rgba(16, 24, 40, 0.08);
+  --shadow-card-hover: 0 16px 40px rgba(16, 24, 40, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select,
+textarea {
+  min-width: 0;
+}
+
+button {
+  min-height: 40px;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(8, 106, 244, 0.22);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  button {
+    width: auto;
+  }
+}
