@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { apiFetch } from '../api/http'
 import { useAuth } from '../auth/useAuth'
+import './CatalogPanel.css'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -72,13 +73,13 @@ function ListingCard({ listing, onPublish, onCancel, isMine }: {
     isMine: boolean
 }) {
     return (
-        <div style={{
+        <div className="catalog-listing-card" style={{
             border: '0.5px solid var(--color-border-tertiary)',
             borderRadius: 12,
             padding: '12px 14px',
             background: 'var(--color-background-primary)',
         }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
+            <div className="catalog-listing-header">
                 <div style={{ minWidth: 0 }}>
                     <p style={{ margin: 0, fontWeight: 500, fontSize: 14, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {listing.title}
@@ -92,7 +93,7 @@ function ListingCard({ listing, onPublish, onCancel, isMine }: {
                 </span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 10, fontSize: 13 }}>
+            <div className="catalog-listing-meta">
                 <div>
                     <span style={{ color: 'var(--color-text-secondary)' }}>Current price</span>
                     <p style={{ margin: '2px 0 0', fontWeight: 500 }}>{formatRp(listing.currentPrice)}</p>
@@ -118,7 +119,7 @@ function ListingCard({ listing, onPublish, onCancel, isMine }: {
             </p>
 
             {isMine && listing.status === 'DRAFT' && listing.bidCount === 0 && (
-                <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+                <div className="catalog-card-actions">
                     <button onClick={() => onPublish(listing.id)} style={{ flex: 1, fontSize: 13, padding: '6px 0' }}>
                         Publish
                     </button>
@@ -363,10 +364,10 @@ export function CatalogPanel() {
     }
 
     return (
-        <div style={{ display: 'grid', gap: 16, padding: '4px 0' }}>
+        <div className="catalog-panel">
 
             {/* Tab row */}
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <div className="catalog-tabs">
                 <button style={tabStyle('browse')} onClick={() => setTab('browse')}>Browse</button>
                 {user && <button style={tabStyle('my')} onClick={() => setTab('my')}>My listings</button>}
                 {user && <button style={tabStyle('create')} onClick={() => setTab('create')}>+ Buat listing</button>}
@@ -376,7 +377,7 @@ export function CatalogPanel() {
             {/* ── Browse tab ─────────────────────────────────────────────────── */}
             {tab === 'browse' && (
                 <div style={{ display: 'grid', gap: 12 }}>
-                    <div style={{ display: 'flex', gap: 8 }}>
+                    <div className="catalog-search-row">
                         <input
                             value={keyword}
                             onChange={e => setKeyword(e.target.value)}
@@ -391,7 +392,7 @@ export function CatalogPanel() {
 
                     <StatusMsg msg={browseMsg} type="info" />
 
-                    <div style={{ display: 'grid', gap: 10 }}>
+                    <div className="catalog-list">
                         {listings.length === 0 && !browseLoading && (
                             <p style={{ margin: 0, fontSize: 13, color: 'var(--color-text-secondary)' }}>Tidak ada listing.</p>
                         )}
@@ -407,7 +408,7 @@ export function CatalogPanel() {
                     </div>
 
                     {totalPages > 1 && (
-                        <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'center', fontSize: 13 }}>
+                        <div className="catalog-pager">
                             <button onClick={() => browseListings(page - 1)} disabled={page === 0} style={{ padding: '5px 12px' }}>←</button>
                             <span style={{ color: 'var(--color-text-secondary)' }}>Halaman {page + 1} / {totalPages}</span>
                             <button onClick={() => browseListings(page + 1)} disabled={page >= totalPages - 1} style={{ padding: '5px 12px' }}>→</button>
@@ -419,7 +420,7 @@ export function CatalogPanel() {
             {/* ── My listings tab ────────────────────────────────────────────── */}
             {tab === 'my' && (
                 <div style={{ display: 'grid', gap: 12 }}>
-                    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <div className="catalog-my-toolbar">
                         <button onClick={loadMyListings} disabled={myLoading} style={{ fontSize: 13, padding: '6px 14px' }}>
                             {myLoading ? 'Loading...' : 'Reload'}
                         </button>
@@ -474,7 +475,7 @@ export function CatalogPanel() {
                         </select>
                     </label>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                    <div className="catalog-form-grid">
                         <label style={{ display: 'grid', gap: 5, fontSize: 13 }}>
                             <span style={{ color: 'var(--color-text-secondary)' }}>Starting price (Rp) *</span>
                             <input
@@ -544,7 +545,7 @@ export function CatalogPanel() {
                         )}
                         <div style={{ display: 'grid', gap: 6 }}>
                             {flatCats.map(c => (
-                                <div key={c.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 10px', border: '0.5px solid var(--color-border-tertiary)', borderRadius: 8, fontSize: 13 }}>
+                                <div key={c.id} className="catalog-category-row">
                                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12 }}>{c.label}</span>
                                     {user?.role === 'ADMIN' && (
                                         <button
@@ -561,7 +562,7 @@ export function CatalogPanel() {
 
                     {/* Buat kategori — hanya admin */}
                     {user?.role === 'ADMIN' && (
-                        <div style={{ border: '0.5px solid var(--color-border-tertiary)', borderRadius: 12, padding: '12px 14px', display: 'grid', gap: 10 }}>
+                        <div className="catalog-admin-card">
                             <p style={{ margin: 0, fontSize: 13, fontWeight: 500 }}>Buat kategori baru (Admin)</p>
 
                             <label style={{ display: 'grid', gap: 5, fontSize: 13 }}>

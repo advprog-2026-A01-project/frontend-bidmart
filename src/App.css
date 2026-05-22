@@ -282,3 +282,160 @@
     padding: 10px 12px;
   }
 }
+/* ===== BidMart responsive polish: shell/header/modal ===== */
+
+.bm-header {
+  backdrop-filter: saturate(140%) blur(10px);
+}
+
+.bm-header__inner {
+  min-width: 0;
+}
+
+.bm-search,
+.bm-user,
+.bm-logo {
+  min-width: 0;
+}
+
+.bm-search input {
+  min-width: 140px;
+}
+
+.bm-btnPrimary,
+.bm-btnGhost {
+  white-space: nowrap;
+}
+
+.bm-main {
+  width: 100%;
+}
+
+.bm-hero {
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+}
+
+.bm-overlay {
+  -webkit-overflow-scrolling: touch;
+}
+
+.bm-modal,
+.wallet-panel {
+  width: min(100%, 980px);
+}
+
+@media (max-width: 920px) {
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .bm-header__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+
+  .bm-logo {
+    align-self: center;
+  }
+
+  .bm-user {
+    justify-content: flex-end;
+  }
+
+  .bm-search {
+    grid-column: 1 / -1;
+    order: initial;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .bm-header__inner {
+    grid-template-columns: 1fr;
+    padding: 10px 0;
+  }
+
+  .bm-logo {
+    justify-content: center;
+  }
+
+  .bm-search {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .bm-search input,
+  .bm-search button {
+    width: 100%;
+  }
+
+  .bm-user {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    width: 100%;
+    gap: 8px;
+  }
+
+  .bm-user .bm-pill {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-content: center;
+  }
+
+  .bm-user .bm-btnGhost,
+  .bm-user .bm-btnPrimary {
+    grid-column: span 1;
+    width: 100%;
+    margin-left: 0 !important;
+  }
+
+  .bm-nav__inner {
+    gap: 8px;
+    padding: 8px 0;
+  }
+
+  .bm-nav__inner a {
+    font-size: 12px;
+    padding: 6px 9px;
+  }
+
+  .bm-main {
+    padding-top: 14px;
+    padding-bottom: 40px;
+  }
+
+  .bm-hero {
+    border-radius: 14px;
+    padding: 14px;
+  }
+
+  .bm-hero h1 {
+    font-size: 22px;
+  }
+
+  .bm-overlay {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .bm-modal {
+    min-height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .bm-modalHeader {
+    padding: 12px;
+  }
+}
