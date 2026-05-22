@@ -742,3 +742,37 @@
 .ap-helpWarn {
     color: #b54708;
 }
+/* ===== Account panel final responsive guards ===== */
+
+.ap-root input,
+.ap-root select,
+.ap-root textarea,
+.ap-root button {
+    min-width: 0;
+}
+
+.ap-root code {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+@media (max-width: 520px) {
+    .ap-tabRow {
+        flex-wrap: nowrap;
+    }
+
+    .ap-tabRow button {
+        flex: 0 0 auto;
+    }
+
+    .ap-authModeRow button,
+    .ap-actions button,
+    .ap-primaryActions button {
+        width: 100%;
+    }
+
+    .ap-table td {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+}
