@@ -18,8 +18,34 @@ const getMockItem = (itemId: number) => MOCK_ITEM_CATALOG[itemId] || {
 
 const formatCurrency = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
 
+function extractErrorMessage(err: unknown): string {
+    if (err instanceof Error) {
+        const extended = err as Error & { status?: number; payload?: unknown };
+        // Try to extract a meaningful message from the payload
+        if (extended.payload) {
+            if (typeof extended.payload === 'object' && extended.payload !== null) {
+                const p = extended.payload as Record<string, unknown>;
+                if (typeof p.message === 'string') return p.message;
+                if (typeof p.error === 'string') return p.error;
+            }
+            if (typeof extended.payload === 'string' && extended.payload.length > 0 && extended.payload.length < 200) {
+                return extended.payload;
+            }
+        }
+        // If status is available, provide a user-friendly message
+        if (extended.status === 401) return 'Please sign in to view auctions.';
+        if (extended.status === 403) return 'You do not have permission to access auctions.';
+        if (extended.status === 404) return 'Auction not found.';
+        if (extended.status === 500) return 'Server error. Please try again later.';
+        if (extended.status === 502 || extended.status === 503) return 'Auction service is currently unavailable. Please try again later.';
+    }
+    return 'Failed to load auctions. Please try again.';
+}
+
 export const BiddingPanel: React.FC = () => {
-    const { user } = useAuth();
+    const { user, tokens } = useAuth();
+    const accessToken = tokens?.accessToken ?? null;
+
     const [auctions, setAuctions] = useState<Auction[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -31,11 +57,11 @@ export const BiddingPanel: React.FC = () => {
     const fetchAuctions = async () => {
         try {
             setLoading(true);
-            const data = await getAuctions();
+            const data = await getAuctions(accessToken ?? undefined);
             setAuctions(data);
             setError('');
         } catch (err: unknown) {
-            setError(err instanceof Error ? err.message : 'Failed to load auctions');
+            setError(extractErrorMessage(err));
         } finally {
             setLoading(false);
         }
@@ -43,7 +69,7 @@ export const BiddingPanel: React.FC = () => {
 
     useEffect(() => {
         fetchAuctions();
-    }, []);
+    }, [accessToken]); // re-fetch when auth state changes
 
     const handleBidClick = (auction: Auction) => {
         if (!user) {
@@ -58,7 +84,7 @@ export const BiddingPanel: React.FC = () => {
     };
 
     const submitBid = async () => {
-        if (!selectedAuction || !user) return;
+        if (!selectedAuction || !user || !accessToken) return;
         const amount = parseFloat(bidAmount);
         if (isNaN(amount)) {
             setBiddingState('error');
@@ -74,7 +100,7 @@ export const BiddingPanel: React.FC = () => {
 
         try {
             setBiddingState('bidding');
-            await placeBid(selectedAuction.id, { userId: (user as {id?: number}).id || 1, amount });
+            await placeBid(selectedAuction.id, { userId: (user as {id?: number}).id || 1, amount }, accessToken);
             setBiddingState('success');
             setBiddingMessage('Bid placed successfully!');
             setTimeout(() => {
@@ -83,7 +109,7 @@ export const BiddingPanel: React.FC = () => {
             }, 2000);
         } catch (err: unknown) {
             setBiddingState('error');
-            setBiddingMessage(err instanceof Error ? err.message : 'Failed to place bid');
+            setBiddingMessage(extractErrorMessage(err));
         }
     };
 
@@ -92,7 +118,17 @@ export const BiddingPanel: React.FC = () => {
     }
 
     if (error) {
-        return <div className="bidding-error">{error}</div>;
+        return (
+            <div className="bidding-error">
+                <p>{error}</p>
+                <button
+                    onClick={fetchAuctions}
+                    style={{ marginTop: 8, padding: '6px 16px', fontSize: 13, cursor: 'pointer' }}
+                >
+                    Retry
+                </button>
+            </div>
+        );
     }
 
     return (
